@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Limited</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="container">
+  <h1></h1>
+  <div id="address"></div>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>numOfItems()</td>
+          <td id="numOfItems"></td>
+        </tr>
+        <tr>
+          <td>getItemName()</td>
+          <td id="getItemName"></td>
+        </tr>
+        <tr>
+          <td>getItemColor()</td>
+          <td id="getItemColor"></td>
+        </tr>
+        <tr>
+          <td>getItemSize()</td>
+          <td id="getItemSize"></td>
+        </tr>
+        <tr>
+          <td>getItemDescription()</td>
+          <td id="getItemDescription"></td>
+        </tr>
+        <tr>
+          <td>getItemYear()</td>
+          <td id="getItemYear"></td>
+        </tr>
+        <tr>
+          <td>getItemBeliveryVolume()</td>
+          <td id="getItemBeliveryVolume"></td>
+        </tr>
+        <tr>
+          <td>getItemPrice()</td>
+          <td id="getItemPrice"></td>
+        </tr>
+        <tr>
+          <td>owners()</td>
+          <td id="owners"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <input type="text" id="item-id" />
+  <a href="#" onclick="getItem()" class="btn btn-primary">Item ID</a>
+
+  <hr>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>getItemsOfAddress()</td>
+          <td id="getItemsOfAddress"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <input type="text" id="ownerAddress" />
+  <a href="#" onclick="getItemsOfAddress()" class="btn btn-primary">Address</a>
+
+  <hr>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>transferRights()</td>
+          <td id="transferRights"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="msg"></div>
+  </div>
+  <input type="text" id="myAddress" placeholder="My Address" />
+  <input type="text" id="newAddress" placeholder="New Address" />
+  <input type="text" id="itemNumber" placeholder="ID of the item" />
+  <a href="#" onclick="transferRights()" class="btn btn-primary">Transfer rights</a>
+
+</body>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="app.js"></script>
+</html>

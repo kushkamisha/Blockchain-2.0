@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Limited</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <!-- <div id="numOfItems"></div> -->
+
+    <nav class="navbar navbar-inverse border-radius-0">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">
+          <img class="logo" src="https://i.imgur.com/jCTPnRz.png"></img>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse font-lighter" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="../index.html">Sneakers</a></li>
+          <li><a href="#">Perfume</a></li>
+          <li><a href="#">Fur coats</a></li> 
+          <li><a href="#">Clock</a></li>
+          <li><a href="#">Bags</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#"><span class="glyphicon glyphicon-qrcode"></span> Check by id</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div id="search">
+      <div class="col-md-12 col-xs-12 text-center">
+        <div class="font-bolder">Search by id</div>
+        <div class="font-lighter">Enter hesh or product id</div>
+        <div class="col-lg-6 col-md-offset-3">
+          <div class="input-group">
+              <input type="text" id="item-id" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button" onclick="getItem(); showResult();">Go!</button>
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="result">
+      <div class="col-md-12 col-xs-12"">
+        <a href="/" id="back-button"><span class="glyphicon glyphicon-chevron-left"></span> Back to search</a>
+      </div>
+      <div class="col-md-1 col-xs-0"></div>
+      <div class="col-md-10 col-xs-12">
+        <img class="wight-inherit" id="collection-img" src=""></img>
+      </div>
+      <div class="filters col-md-10 col-xs-12">
+        <div class="row filter">
+          <div class="col-md-1 font-bolder">Color</div>
+          <div class="col-md-2">
+            <button class="color-box" id="color-box"></button>
+          </div>
+          <div class="col-md-1 font-bolder">Size</div>
+          <div class="col-md-6">
+            <button class="size-box" id="size-38"><span class="lighter">38</span></button>
+            <button class="size-box" id="size-39"><span class="lighter">39</span></button>
+            <button class="size-box" id="size-40"><span class="lighter">40</span></button>
+            <button class="size-box" id="size-41"><span class="lighter">41</span></button>
+            <button class="size-box" id="size-42"><span class="lighter">42</span></button>
+            <button class="size-box" id="size-43"><span class="lighter">43</span></button>
+            <button class="size-box" id="size-44"><span class="lighter">44</span></button>
+            <button class="size-box" id="size-45"><span class="lighter">45</span></button>
+            <button class="size-box" id="size-46"><span class="lighter">46</span></button>
+            <button class="size-box" id="size-47"><span class="lighter">47</span></button>
+            <button class="size-box" id="size-48"><span class="lighter">48</span></button>
+            <button class="size-box" id="size-49"><span class="lighter">49</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>    
+      <div class="col-md-5 col-xs-12">
+        <div class="font-bolder" id="getItemName"></div>
+        <div class="font-lighter" id="getItemDescription"></div>
+        <br>
+        <div class="font-lighter" id="getItemYear"></div>
+        <div class="font-lighter" id="getItemBeliveryVolume"></div>
+        <br>
+        <div class="font-lighter" id="owners"></div>
+      </div>
+      <div class="col-md-2 col-xs-12">
+        <div class="font-bolder float-right" id="getItemPrice"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="creators">
+    Smart contracts by <b>Kushka Misha</b><br>
+    Design by <b>Denys Krolevetskyi</b>
+  </div>
+  <script>
+    function showResult() {
+      $("#search").css("display", "none");
+      $("#result").css("display", "block");
+
+      let itemId = $("#item-id").val();
+
+      let imageTitle = "";
+      switch(itemId) {
+        case "0": imageTitle = "https://i.imgur.com/BxawSBE"; break;
+        case "1": imageTitle = "https://i.imgur.com/BZ8J0cA"; break;
+        case "2": imageTitle = "https://i.imgur.com/Y4Qb4nt"; break;
+      }
+      $("#collection-img").attr("src", imageTitle + ".png");
+    }
+
+    function showSearch() {
+      $("#search").css("display", "block");
+      $("#result").css("display", "none");
+
+      let itemId = $("#item-id").val();
+
+      let imageTitle = "";
+      $("#collection-img").attr("src", imageTitle + ".png");
+    }
+  </script>
+
+</body>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="app.js"></script>
+</html>

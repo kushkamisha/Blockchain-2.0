@@ -1,0 +1,115 @@
+body {
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.border-radius-0 {
+    border-radius: 0;
+}
+
+.font-lighter {
+    font-weight: lighter;
+}
+.font-bolder {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.float-right {
+  float: right;
+}
+
+.vertical-menu-button {
+  margin-bottom: 10px;
+  border-right: 1px solid black;
+}
+
+.logo {
+    height: calc(100% - 5px);
+}
+
+.wight-inherit {
+    width: 100%;
+}
+
+.margin-0 {
+    margin: 0;
+    padding: 0;
+}
+
+.category {
+    border: none;
+    background-color: white;
+    padding-left: 0;
+}
+
+.subcategory {
+    padding-left: 15px;
+    border: none;
+    color: black;
+    transition: .3s;
+}
+.subcategory:hover {
+    padding-left: 20px;
+    text-decoration: none;
+    color: black;
+    -webkit-transition: .5s; /* Safari */
+}
+
+.color-box {
+    width: 2em;
+    height: 2em;
+    
+    border: none;
+    background-color: #C0C0C0;
+    border-radius: 0.3em;
+}
+
+.size-box {
+    width: 2em;
+    height: 2em;
+    padding: 0;
+    margin: 2px 0;
+    
+    background-color: white;
+    border: 1px solid #C0C0C0;
+    border-radius: 0.3em;
+    
+    color: #C0C0C0;
+}
+.size-box:hover {
+    border: 1px solid black;
+    color: black;
+}
+
+.size-box span {
+  font-size: 12px;
+  margin: 0;
+}
+
+.filters {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.filter {
+  line-height: 1.5em;
+}
+
+#result {
+    display: none;
+}
+
+#back-button {
+    text-decoration: none;
+    color: black;
+}
+#creators {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 2em;
+}
