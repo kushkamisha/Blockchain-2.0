@@ -1,151 +1,149 @@
-// Import the page's CSS. Webpack will know what to do with it.
 import "../stylesheets/app.css";
 
-// Import libraries we need.
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
 
-import voting_artifacts from '../../build/contracts/Limited.json'
+import records_artifacts from '../../build/contracts/Records.json'
 
-var Limited = contract(voting_artifacts);
+var Records = contract(records_artifacts);
 
-// window.getItem = function(candidate) {
-//   let candidateName = $("#item-id").val();
-//   try {
-//     // $("#msg").html("Vote has been submitted. The vote count will increment as soon as the vote is recorded on the blockchain. Please wait.")
-//     // $("#candidate").val("");
-     
-//     Voting.deployed().then(function(contractInstance) {
-//       contractInstance.voteForCandidate(candidateName, {gas: 140000, from: web3.eth.accounts[0]}).then(function() {
-//         let div_id = candidates[candidateName];
-//         return contractInstance.totalVotesFor.call(candidateName).then(function(v) {
-//           $("#" + div_id).html(v.toString());
-//           $("#msg").html("");
-//         });
-//       });
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
 
-window.getItem = function() {
-  let itemId = $("#item-id").val();
-  console.log(itemId);
-
-  // Get item name
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemName.call(itemId).then(function(v) {
-      $("#getItemName").html(v.toString());
-    });
-  })
-
-  // Get item color
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemColor.call(itemId).then(function(v) {
-      $("#color-box").css("background", v);
-    });
-  })
-
-  // Get item size
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemSize.call(itemId).then(function(v) {
-      $("#size-" + v).css("color", "black").css("border", "1px solid black");
-    });
-  })
-
-  // Get item description
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemDescription.call(itemId).then(function(v) {
-      $("#getItemDescription").html(v.toString());
-    });
-  })
-
-  // Get item year
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemYear.call(itemId).then(function(v) {
-      $("#getItemYear").html("Year: " + v.toString());
-    });
-  })
-
-  // Get item belivery volume
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemBeliveryVolume.call(itemId).then(function(v) {
-      $("#getItemBeliveryVolume").html("Volume: " + v.toString());
-    });
-  })
-
-  // Get item size
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemPrice.call(itemId).then(function(v) {
-      $("#getItemPrice").html("$" + v.toString());
-    });
-  })
-
-  // Get owner of the item
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.owners.call(itemId).then(function(v) {
-      $("#owners").html("Owner: " + v.toString());
-    });
-  })
-
+window.get = function() {
+  console.log("hlele");
 }
 
-window.getItemsOfAddress = function() {
-  let address = String($("#ownerAddress").val());
+/**
+ * Add data to the Blockchain.
+ */
+ window.addToBlockchain = function() {
+    // Get values to save.
+    let firstName = $("#firstName").val();
+    let secondName = $("#lastName").val();
+    let amount = $("#amount").val();
 
-  // Get items of address
-  Limited.setProvider(web3.currentProvider);
-  Limited.deployed().then(function(contractInstance) {
-    contractInstance.getItemsOfAddress.call(address).then(function(v) {
-      let arr = Array.from(v);
-      let values = [];
-      let counter = 0;
+    // Save data to the database.
+    let record_id = saveToDatabase(firstName, secondName, amount);
 
-      arr.forEach(function(elem) {
-          if (counter > 2) {
-            values.push(elem.toString());
-          }
-          counter++;
-      })
+    // Read data from the database.
+    let [db_firstName, db_secondName, db_amount] = getDataFromDatabase(record_id);
 
-      console.log(values);
+    // Get hash 
+    let data = db_firstName.toString() + db_secondName.toString() + db_amount.toString();
+    
+    const sha256 = require('js-sha256').sha256;
+    let hash = sha256(data);
+    hash = "0x" + hash;
+    console.log("Hash: " + hash);
 
-      let result = "";
-      values.forEach(function(element) {
-        console.log(element);
-        result += element + " ";
-      });
-      $("#getItemsOfAddress").html(result);
-    });
-  })
-}
+    // Add hash to the hash table in the blockchain.
+    putHashToBlockchain(hash);
+ }
 
-window.transferRights = function() {
-  let myAddress = $("#myAddress").val();
-  let newAddress = $("#newAddress").val();
-  let itemNumber = $("#itemNumber").val();
-  console.log(myAddress);
-  console.log(newAddress);
-  console.log(itemNumber);
+ let isPaused = false;
+ let hash = "0x0";
+ let id = 0;
+
+ function putHashToBlockchain(hash) {
+
+  console.log("Hast to be in the blockchain: " + hash);
 
   try {
-    $("#msg").html("Your action has been submitted. Centificate will change the owner as soon as your action is recorded on the blockchain. Please wait.")
-    $("#transferRights").html("Waiting...");
+    // start transaction
+    $("#input-sector").css("display", "none");
+    $("#loading-sector").css("display", "block");
 
-    Limited.deployed().then(function(contractInstance) {
-      contractInstance.transferRights(newAddress, itemNumber, {gas: 140000, from: myAddress}).then(function() {
-        return contractInstance.transferRights.call(newAddress, itemNumber).then(function(v) {
-          $("#transferRights").html("True");
-          $("#msg").html("");
+  Records.deployed().then(function(contractInstance) {
+    contractInstance.pushToColumn(0, hash, {gas: 140000, from: web3.eth.accounts[0]}).then(function() {
+      return contractInstance.pushToColumn.call(0, hash).then(function(v) {
+        // transaction confirmed
+        $("#loading-sector").css("display", "none");
+        $("#output-sector").css("display", "block");
+
+      });
+    });
+  });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Save data to the database.
+ */
+function saveToDatabase(firstName, secondName, amount) {
+    console.log("Save data to the database ...");
+
+    let record_id = 3;
+
+    return record_id;
+}
+
+/**
+ * Get data from the database.
+ */
+function getDataFromDatabase(id) {
+    let firstName = "Adolf";
+    let secondName = "Gitler";
+    let amount = "125";
+
+    return [firstName, secondName, amount];
+}
+
+/**
+ * Get hash from the blockchain.
+ */
+window.get = function(id) {
+  Records.setProvider(web3.currentProvider);
+  Records.deployed().then(function(contractInstance) {
+    contractInstance.get.call(0, id).then(function(v) {
+      console.log(v.toString());
+      $("input[name=hash-in-blockchain]").val(v.toString().split(",")[0]);
+    });
+  })
+}
+
+/**
+ * Update data in the database and hash in the blockchain
+ */
+window.startUpdating = function() {
+  // Get values to save.
+  let firstName = $("#firstName").val();
+  let lastName = $("#lastName").val();
+  let amount = $("#amount").val();
+
+  // Update data in the database.
+
+  // Read data from the database.
+  let record_id = 0;
+  let [db_firstName, db_secondName, db_amount] = getDataFromDatabase(record_id);
+
+  // Get hash 
+  let data = db_firstName.toString() + db_secondName.toString() + db_amount.toString();
+  
+  const sha256 = require('js-sha256').sha256;
+  let hash = sha256(data);
+  hash = "0x" + hash;
+  console.log("Updated Hash: " + hash);
+
+  // Add hash to the hash table in the blockchain.
+  let table_id = 0;
+  updateHashInTheBlockchain(hash, table_id);
+}
+
+function updateHashInTheBlockchain(hash, table_id) {
+  console.log("Hast to be updated in the blockchain: " + hash);
+
+  try {
+    // start transaction
+    $("#input-sector").css("display", "none");
+    $("#loading-sector").css("display", "block");
+
+    Records.deployed().then(function(contractInstance) {
+      contractInstance.changeData(0, table_id, hash, {gas: 140000, from: web3.eth.accounts[0]}).then(function() {
+        return contractInstance.changeData.call(0, table_id, hash).then(function(v) {
+          // transaction complited.
+          $("#loading-sector").css("display", "none");
+          $("#output-sector").css("display", "block");
         });
       });
     });
@@ -154,21 +152,21 @@ window.transferRights = function() {
   }
 }
 
+
 $( document ).ready(function() {
   if (typeof web3 !== 'undefined') {
     console.warn("Using web3 detected from external source like Metamask")
-    // Use Mist/MetaMask's provider
-    window.web3 = new Web3(web3.currentProvider);
+    window.web3 = new Web3(web3.currentProvider); // Use Mist/MetaMask's provider
   } else {
     console.warn("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
-    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
 
-  Limited.setProvider(web3.currentProvider);
-    Limited.deployed().then(function(contractInstance) {
-      contractInstance.numOfItems.call().then(function(v) {
-        $("#numOfItems").html(v.toString());
+  // Call function, when page loaded.
+  Records.setProvider(web3.currentProvider);
+    Records.deployed().then(function(contractInstance) {
+      contractInstance.numOfColumns.call().then(function(v) {
+        $("#numOfColumns").html(v.toString());
       });
     })
 });

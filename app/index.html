@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Limited</title>
+  <title>Blockchain 2.0</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-    <!-- <div id="numOfItems"></div> -->
+  <!-- <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>numOfColumns()</td>
+          <td id="numOfColumns"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="msg"></div>
+  </div>
 
-    <nav class="navbar navbar-inverse border-radius-0">
+  <textarea id="sha256-text" cols="50"></textarea><br>
+  <a href="#" onclick="#" class="btn btn-primary">Get hash</a>
+
+  <hr>
+
+  <input type="text" name="first-name"><br>
+  <input type="text" name="second-name"><br>
+  <input type="text" name="amount"><br>
+
+  <a href="#" onclick="addToBlockchain()" class="btn btn-primary">Save to the Blockchain</a>
+
+  <hr>
+
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>get()</td>
+          <td id="get"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <input type="text" name="id"><br>
+  <a href="#" onclick="getDataById()" class="btn btn-primary">Get hash by id</a> -->
+
+  <nav class="navbar navbar-inverse border-radius-0">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -17,19 +67,18 @@
           <span class="icon-bar"></span>                        
         </button>
         <a class="navbar-brand" href="#">
-          <img class="logo" src="https://i.imgur.com/jCTPnRz.png"></img>
+          <span class="font-monospace">Blockchain 2.0 </span><span class="font-bolder font-white">Admin</span>
         </a>
       </div>
       <div class="collapse navbar-collapse font-lighter" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a href="../index.html">Sneakers</a></li>
-          <li><a href="#">Perfume</a></li>
-          <li><a href="#">Fur coats</a></li> 
-          <li><a href="#">Clock</a></li>
-          <li><a href="#">Bags</a></li>
+          <li class="active"><a href="#">Add Clients</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Database</a></li> 
+          <li><a href="change.html">Change users</a></li>
+          <li><a href="#">Help</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#"><span class="glyphicon glyphicon-qrcode"></span> Check by id</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
@@ -38,101 +87,119 @@
   </nav>
   
   <div class="container">
-    <div id="search">
-      <div class="col-md-12 col-xs-12 text-center">
-        <div class="font-bolder">Search by id</div>
-        <div class="font-lighter">Enter hesh or product id</div>
-        <div class="col-lg-6 col-md-offset-3">
-          <div class="input-group">
-              <input type="text" id="item-id" class="form-control" placeholder="Search for...">
-              <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button" onclick="getItem(); showResult();">Go!</button>
-              </span>
+    <div id="input-sector">
+      <div class="col-md-8 col-md-offset-2 tile">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-align-center">
+            <span class="font-title">Add new client</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="wrap-input">
+              <span class="label-input">FIRST NAME *</span>
+              <input class="input" id="firstName" type="text" name="name" placeholder="Enter Client's First Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="wrap-input">
+              <span class="label-input">LAST NAME *</span>
+              <input class="input" id="lastName" type="text" name="name" placeholder="Enter Client's Last Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="wrap-input">
+              <span class="label-input">AMOUNT *</span>
+              <input class="input" id="amount" type="text" name="name" placeholder="Enter Client's Amount">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <button class="contact100-form-btn" onclick="addToBlockchain()">
+              <span class="font-white">Submit</span>
+            </button>
           </div>
         </div>
       </div>
     </div>
     
-    <div id="result">
-      <div class="col-md-12 col-xs-12"">
-        <a href="/" id="back-button"><span class="glyphicon glyphicon-chevron-left"></span> Back to search</a>
-      </div>
-      <div class="col-md-1 col-xs-0"></div>
-      <div class="col-md-10 col-xs-12">
-        <img class="wight-inherit" id="collection-img" src=""></img>
-      </div>
-      <div class="filters col-md-10 col-xs-12">
-        <div class="row filter">
-          <div class="col-md-1 font-bolder">Color</div>
-          <div class="col-md-2">
-            <button class="color-box" id="color-box"></button>
+    <div id="loading-sector">
+      <div class="col-md-8 col-md-offset-2 tile">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-align-center">
+            <img class="loading-icon" src="https://i.imgur.com/X0u7Kvc.gif">
           </div>
-          <div class="col-md-1 font-bolder">Size</div>
-          <div class="col-md-6">
-            <button class="size-box" id="size-38"><span class="lighter">38</span></button>
-            <button class="size-box" id="size-39"><span class="lighter">39</span></button>
-            <button class="size-box" id="size-40"><span class="lighter">40</span></button>
-            <button class="size-box" id="size-41"><span class="lighter">41</span></button>
-            <button class="size-box" id="size-42"><span class="lighter">42</span></button>
-            <button class="size-box" id="size-43"><span class="lighter">43</span></button>
-            <button class="size-box" id="size-44"><span class="lighter">44</span></button>
-            <button class="size-box" id="size-45"><span class="lighter">45</span></button>
-            <button class="size-box" id="size-46"><span class="lighter">46</span></button>
-            <button class="size-box" id="size-47"><span class="lighter">47</span></button>
-            <button class="size-box" id="size-48"><span class="lighter">48</span></button>
-            <button class="size-box" id="size-49"><span class="lighter">49</span></button>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 text-align-center">
+            <span class="font-bolder">Waiting for the Ethereum network...</span><br>
+            <span class="font-lighter">We are updating the smart-contract</span>
           </div>
         </div>
       </div>
-      <div class="clearfix"></div>    
-      <div class="col-md-5 col-xs-12">
-        <div class="font-bolder" id="getItemName"></div>
-        <div class="font-lighter" id="getItemDescription"></div>
-        <br>
-        <div class="font-lighter" id="getItemYear"></div>
-        <div class="font-lighter" id="getItemBeliveryVolume"></div>
-        <br>
-        <div class="font-lighter" id="owners"></div>
-      </div>
-      <div class="col-md-2 col-xs-12">
-        <div class="font-bolder float-right" id="getItemPrice"></div>
+    </div>
+    
+    <div id="output-sector">
+      <div class="col-md-8 col-md-offset-2 tile">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-align-center">
+            <img class="loading-icon" src="https://i.imgur.com/jLO7Pah.png">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 text-align-center">
+            <span class="font-bolder" id="id">Complete!</span><br>
+            <span class="font-lighter" id="hash"></span>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <button class="contact100-form-btn" onclick="window.location.reload()">
+              <span class="font-white">Add another client</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div id="creators">
-    Smart contracts by <b>Kushka Misha</b><br>
-    Design by <b>Denys Krolevetskyi</b>
-  </div>
-  <script>
-    function showResult() {
-      $("#search").css("display", "none");
-      $("#result").css("display", "block");
-
-      let itemId = $("#item-id").val();
-
-      let imageTitle = "";
-      switch(itemId) {
-        case "0": imageTitle = "https://i.imgur.com/BxawSBE"; break;
-        case "1": imageTitle = "https://i.imgur.com/BZ8J0cA"; break;
-        case "2": imageTitle = "https://i.imgur.com/Y4Qb4nt"; break;
-      }
-      $("#collection-img").attr("src", imageTitle + ".png");
-    }
-
-    function showSearch() {
-      $("#search").css("display", "block");
-      $("#result").css("display", "none");
-
-      let itemId = $("#item-id").val();
-
-      let imageTitle = "";
-      $("#collection-img").attr("src", imageTitle + ".png");
-    }
-  </script>
-
+  </div> 
 </body>
+
+<script>
+  // function startLoading() {
+  //   $("#input-sector").css("display", "none");
+  //   $("#loading-sector").css("display", "block");
+    
+  //   console.log($("#firstName").val() + "\n" + $("#lastName").val() + "\n" + $("#amount").val());
+    
+  //   setTimeout(function(){ showResult(); }, 3000);
+  // }
+  
+  // function showResult() {
+  //   $("#loading-sector").css("display", "none");
+  //   $("#output-sector").css("display", "block");
+    
+  //   let hash = "cf23df2207d99a74fbe169e3eba035e633b65d94";
+  //   let id = 33;
+    
+  //   $("#hash").html(hash);
+  //   $("#id").html("Complete!<br> Your clien ID is " + id);
+  // }
+</script>
+
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 <script src="app.js"></script>
+<!-- <script src="main.js"></script> -->
 </html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Blockchain 2.0</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/app/stylesheets/app.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse border-radius-0">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">
+          <span class="font-monospace">Blockchain 2.0 </span><span class="font-bolder font-white">Admin</span>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse font-lighter" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Add Clients</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Database</a></li> 
+          <li class="active"><a href="#">Change data</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 tile">
+      <div id="input-sector">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 text-align-center">
+            <span class="font-title">Change client's data</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="wrap-input">
+              <span class="label-input">CLIENT'S ID *</span>
+              <input class="input" id="id" type="text" name="name" placeholder="Enter Client's ID">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="find-button">
+          <div class="col-md-8 col-md-offset-2">
+            <button class="contact100-form-btn" onclick="startFinding()">
+              <span class="font-white">Find client</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="client-info">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="wrap-input">
+                <span class="label-input">FIRST NAME *</span>
+                <input class="input" id="firstName" type="text" name="name" placeholder="Enter Client's First Name">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="wrap-input">
+                <span class="label-input">LAST NAME *</span>
+                <input class="input" id="lastName" type="text" name="name" placeholder="Enter Client's Last Name">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="wrap-input">
+                <span class="label-input">AMOUNT *</span>
+                <input class="input" id="amount" type="text" name="name" placeholder="Enter Client's Amount">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="wrap-input">
+                <span class="label-input">HASH IN THE BLOCKCHAIN</span>
+                <input class="input" id="hash-in-blockchain" type="text" name="hash-in-blockchain" placeholder="0x0">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <button class="contact100-form-btn" onclick="startUpdating()">
+                <span class="font-white">Save</span>
+              </button>
+            </div>
+          </div>
+      </div>
+      </div>
+      <div id="loading-sector">
+        <div class="col-md-8 col-md-offset-2 tile">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-align-center">
+              <img class="loading-icon" src="https://i.imgur.com/X0u7Kvc.gif">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-align-center">
+              <span class="font-bolder">Waiting for Ethereum network</span><br>
+              <span class="font-lighter">We update smart-contract</span>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <div id="output-sector">
+        <div class="col-md-8 col-md-offset-2 tile">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-align-center">
+              <img class="loading-icon" src="https://i.imgur.com/jLO7Pah.png">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-align-center">
+              <span class="font-bolder" id="id">Complete!</span><br>
+              <span class="font-lighter" id="hash"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <button class="contact100-form-btn" onclick="window.location.reload()">
+                <span class="font-white">Change another</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+  
+<script>
+  function startFinding() {
+    $("#find-button").css("display", "none");
+    
+    let id = $("#id").val();
+
+    get(id);
+
+    showFindingResult();
+  }
+  
+  function showFindingResult() {
+    $("#client-info").css("display", "block");
+    
+    let firstName = "Adolf";
+    let lastName = "Hitler";
+    let amount = 999999;
+    
+    $("#firstName").attr("value", firstName);
+    $("#lastName").attr("value", lastName);
+    $("#amount").attr("value", amount);
+  }
+  
+  function updateInfo() {
+    console.log($("#firstName").val() + "\n" + $("#lastName").val() + "\n" + $("#amount").val())
+  }
+  
+  // function startUpdating() {
+  //   $("#input-sector").css("display", "none");
+  //   $("#loading-sector").css("display", "block");
+    
+  //   console.log($("#firstName").val() + "\n" + $("#lastName").val() + "\n" + $("#amount").val());
+    
+  //   setTimeout(function(){ showUpdateResult(); }, 3000);
+  // }
+  
+  // function showUpdateResult() {
+  //   $("#loading-sector").css("display", "none");
+  //   $("#output-sector").css("display", "block");
+    
+  //   let hash = "cf23df2207d99a74fbe169e3eba035e633b65d94";
+  //   let id = 33;
+    
+  //   $("#hash").html(hash);
+  //   $("#id").html("Complete! id: " + id);
+  // }
+</script>
+
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="app.js"></script>
+
+</html>

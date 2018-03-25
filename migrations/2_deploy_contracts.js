@@ -1,4 +1,4 @@
-var Limited = artifacts.require("./Limited.sol");
+var Records = artifacts.require("./Records.sol");
 module.exports = function(deployer) {
-  deployer.deploy(Limited, {gas: 6700000});
+  deployer.deploy(Records, {gas: 6700000});
 };
